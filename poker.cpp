@@ -141,9 +141,10 @@ vector<Card> bestThreeOfAKind(vector<vector<Card>> buckets)
         {
             for (Card card : buckets[i]) res.push_back(card);
             kindFound = true;
+            i = buckets.size(); // fix bug similar to four of a kind bug
         }
 
-        // add kicker
+        // add kicker(s)
         else if (kindFound && buckets[i].size() > 0) 
         {
             res.push_back(buckets[i][0]);
@@ -168,6 +169,8 @@ vector<Card> bestTwoPair(vector<vector<Card>> buckets)
         {
             for (Card card : buckets[i]) res.push_back(card);
             pairsLeft--;
+
+            if (pairsLeft == 0) i = buckets.size(); // fix bug similar to four of a kind bug
         }
 
         // add kicker
@@ -194,6 +197,7 @@ vector<Card> bestPair(vector<vector<Card>> buckets)
         {
             for (Card card : buckets[i]) res.push_back(card);
             pairFound = true;
+            i = buckets.size(); // fix bug similar to four of a kind bug
         }
 
         // add kickers

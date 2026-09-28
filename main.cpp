@@ -7,6 +7,7 @@ int main()
     // run battery of tests
     testStraightFlush();
     testFourKind();
+    testFullHouse();
 
     return 0;
 }
