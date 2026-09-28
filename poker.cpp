@@ -98,6 +98,7 @@ vector<Card> fourOfAKind(vector<vector<Card>> buckets)
         {
             for (Card card : buckets[i]) res.push_back(card);
             kindFound = true;
+            i = buckets.size(); // must reset so cards before the 4-kind don't get skipped for kicker choice
         }
 
         // add kicker
