@@ -184,7 +184,38 @@ void testThreeKind()
     cout << "Three kinds all clear." << endl;
 }
 
-void testTwoPair();
+void testTwoPair()
+{
+    vector<Card> test1 = {createCard(ACE, CLUBS), createCard(ACE, DIAMONDS), createCard(FOUR, HEARTS), createCard(FOUR, DIAMONDS), createCard(FIVE, CLUBS)};
+    vector<Card> test2 = {createCard(ACE, DIAMONDS), createCard(ACE, SPADES), createCard(THREE, DIAMONDS), createCard(THREE, HEARTS), createCard(QUEEN, SPADES)};
+    vector<Card> test3 = {createCard(ACE, SPADES), createCard(EIGHT, CLUBS), createCard(EIGHT, SPADES), createCard(SEVEN, HEARTS), createCard(SEVEN, SPADES)};
+    vector<Card> test4 = {createCard(TWO, HEARTS), createCard(TWO, SPADES), createCard(THREE, HEARTS), createCard(THREE, CLUBS), createCard(SIX, DIAMONDS)};
+    vector<Card> test5 = {createCard(KING, HEARTS), createCard(SIX, DIAMONDS), createCard(KING, DIAMONDS), createCard(SIX, HEARTS), createCard(QUEEN, CLUBS)};
+    int hand1 = bestHand(test1).score;
+    int hand2 = bestHand(test2).score;
+    int hand3 = bestHand(test3).score;
+    int hand4 = bestHand(test4).score;
+    int hand5 = bestHand(test5).score;
+
+    // make sure hands are evaluated as two pairs
+    assert(getStrength(hand1) == TWO_PAIR);
+    assert(getStrength(hand2) == TWO_PAIR);
+    assert(getStrength(hand3) == TWO_PAIR);
+    assert(getStrength(hand4) == TWO_PAIR);
+    assert(getStrength(hand5) == TWO_PAIR);
+
+    // make sure hands are ranked properly
+    assert(hand2 < hand1);
+    assert(hand2 > hand3);
+    assert(hand3 < hand1);
+    assert(hand4 < hand1);
+    assert(hand5 < hand1);
+    assert(hand4 < hand2);
+    assert(hand5 < hand2);
+
+    // print all clear
+    cout << "Two pairs all clear." << endl;
+}
 void testPair();
 void testHigh();
 void testEverything();

@@ -11,6 +11,7 @@ int main()
     testFlush();
     testStraight();
     testThreeKind();
+    testTwoPair();
 
     return 0;
 }
