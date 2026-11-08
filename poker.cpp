@@ -4,7 +4,7 @@
 vector<Card> bestStraightFlush(vector<vector<Card>> buckets)
 {
     // assemble suits
-    vector<Card> suitCards[4];
+    vector<Card> suitCards[4]; // each suit contains card values in descending order
     for (int i = buckets.size()-1; i >= 0; i--)
     {
         for (Card card : buckets[i]) 
@@ -38,7 +38,7 @@ vector<Card> bestStraightFlush(vector<vector<Card>> buckets)
             
             // check for ace-low straight suit
             if (getValue(suitCards[i][suitCards[i].size()-1]) == TWO && getValue(suitCards[i][suitCards[i].size()-4]) == FIVE && getValue(suitCards[i][0]) == ACE)
-                return {suitCards[i][0], suitCards[i][suitCards[i].size()-4], suitCards[i][suitCards[i].size()-3], suitCards[i][suitCards[i].size()-2], suitCards[i][suitCards[i].size()-1]};
+                return {suitCards[i][suitCards[i].size()-4], suitCards[i][suitCards[i].size()-3], suitCards[i][suitCards[i].size()-2], suitCards[i][suitCards[i].size()-1], suitCards[i][0]};
         }
     }
 
@@ -77,11 +77,11 @@ vector<Card> bestStraight(vector<vector<Card>> buckets)
 
         if (seqLength == 5)
         {
-            return {buckets[i][0], buckets[i+1][0], buckets[i+2][0], buckets[i+3][0], buckets[i+4][0]};
+            return {buckets[i+4][0], buckets[i+3][0], buckets[i+2][0], buckets[i+1][0], buckets[i][0]};
         }
     }
 
-    if (seqLength == 4 && buckets[ACE].size() > 0) return {buckets[0][0], buckets[1][0], buckets[2][0], buckets[3][0], buckets[ACE][0]};
+    if (seqLength == 4 && buckets[ACE].size() > 0) return {buckets[3][0], buckets[2][0], buckets[1][0], buckets[0][0], buckets[ACE][0]};
 
     return {};
 }
@@ -226,24 +226,6 @@ ScoredHand bestHand(vector<Card> cards)
     if (straightFlush.size() > 0) 
     {
         int score = STRAIGHT_FLUSH;
-
-        // be wary of ace-low
-        if (getValue(straightFlush[0]) == ACE && getValue(straightFlush[4]) == TWO)
-        {
-            score <<= KICKER_SHIFT;
-            score += getValue(straightFlush[1]);
-            score <<= KICKER_SHIFT;
-            score += getValue(straightFlush[2]);
-            score <<= KICKER_SHIFT;
-            score += getValue(straightFlush[3]);
-            score <<= KICKER_SHIFT;
-            score += getValue(straightFlush[4]);
-            score <<= KICKER_SHIFT;
-            score += 1;
-
-            return {straightFlush, score};
-        }
-
         for (Card card : straightFlush) 
         {
             score <<= KICKER_SHIFT;
@@ -296,24 +278,6 @@ ScoredHand bestHand(vector<Card> cards)
     if (straight.size() > 0)
     {
         int score = STRAIGHT;
-
-        // be wary of ace-low
-        if (getValue(straight[0]) == ACE && getValue(straight[4]) == TWO)
-        {
-            score <<= KICKER_SHIFT;
-            score += getValue(straight[1]);
-            score <<= KICKER_SHIFT;
-            score += getValue(straight[2]);
-            score <<= KICKER_SHIFT;
-            score += getValue(straight[3]);
-            score <<= KICKER_SHIFT;
-            score += getValue(straight[4]);
-            score <<= KICKER_SHIFT;
-            score += 1;
-
-            return {straight, score};
-        }
-
         for (Card card : straight) 
         {
             score <<= KICKER_SHIFT;

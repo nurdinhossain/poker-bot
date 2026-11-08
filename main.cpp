@@ -9,6 +9,7 @@ int main()
     testFourKind();
     testFullHouse();
     testFlush();
+    testStraight();
 
     return 0;
 }

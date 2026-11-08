@@ -117,7 +117,40 @@ void testFlush()
     cout << "Flush all clear." << endl;
 }
 
-void testStraight();
+void testStraight()
+{
+    vector<Card> test1 = {createCard(ACE, CLUBS), createCard(TWO, DIAMONDS), createCard(THREE, CLUBS), createCard(FOUR, CLUBS), createCard(FIVE, CLUBS)};
+    vector<Card> test2 = {createCard(TEN, DIAMONDS), createCard(JACK, SPADES), createCard(QUEEN, DIAMONDS), createCard(KING, DIAMONDS), createCard(ACE, DIAMONDS)};
+    vector<Card> test3 = {createCard(SEVEN, SPADES), createCard(EIGHT, CLUBS), createCard(NINE, SPADES), createCard(TEN, SPADES), createCard(JACK, SPADES)};
+    vector<Card> test4 = {createCard(TWO, HEARTS), createCard(THREE, HEARTS), createCard(FOUR, HEARTS), createCard(FIVE, CLUBS), createCard(SIX, DIAMONDS)};
+    vector<Card> test5 = {createCard(FIVE, HEARTS), createCard(SIX, DIAMONDS), createCard(SEVEN, DIAMONDS), createCard(EIGHT, DIAMONDS), createCard(NINE, DIAMONDS)};
+    int hand1 = bestHand(test1).score;
+    int hand2 = bestHand(test2).score;
+    int hand3 = bestHand(test3).score;
+    int hand4 = bestHand(test4).score;
+    int hand5 = bestHand(test5).score;
+
+    // make sure hands are evaluated as straights
+    assert(getStrength(hand1) == STRAIGHT);
+    assert(getStrength(hand2) == STRAIGHT);
+    assert(getStrength(hand3) == STRAIGHT);
+    assert(getStrength(hand4) == STRAIGHT);
+    assert(getStrength(hand5) == STRAIGHT);
+
+
+    // make sure hands are ranked properly
+    assert(hand2 > hand1);
+    assert(hand2 > hand3);
+    assert(hand3 > hand1);
+    assert(hand4 > hand1);
+    assert(hand5 > hand1);
+    assert(hand4 < hand2);
+    assert(hand4 < hand5);
+
+    // print all clear
+    cout << "Straights all clear." << endl;
+}
+
 void testThreeKind();
 void testTwoPair();
 void testPair();
