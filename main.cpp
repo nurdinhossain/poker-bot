@@ -10,6 +10,7 @@ int main()
     testFullHouse();
     testFlush();
     testStraight();
+    testThreeKind();
 
     return 0;
 }
