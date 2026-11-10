@@ -90,19 +90,19 @@ vector<Card> fourOfAKind(vector<vector<Card>> buckets)
 {
     // iterate through cards to find four of a kind
     vector<Card> res;
-    bool kindFound = false;
+    int kindBucket = -1;
     for (int i = buckets.size()-1; i >= 0; i--)
     {
         // add 4-of-a-kind to resulting hand
-        if (!kindFound && buckets[i].size() == 4)
+        if (kindBucket == -1 && buckets[i].size() == 4)
         {
             for (Card card : buckets[i]) res.push_back(card);
-            kindFound = true;
+            kindBucket = i;
             i = buckets.size(); // must reset so cards before the 4-kind don't get skipped for kicker choice
         }
 
         // add kicker
-        else if (kindFound && buckets[i].size() > 0) 
+        else if (kindBucket > -1 && buckets[i].size() > 0 && i != kindBucket) 
         {
             res.push_back(buckets[i][0]);
             return res;
@@ -132,20 +132,20 @@ vector<Card> bestThreeOfAKind(vector<vector<Card>> buckets)
 {
     // iterate through cards to find three of a kind
     vector<Card> res;
-    bool kindFound = false;
+    int kindBucket = -1;
     int numKickers = 2;
     for (int i = buckets.size()-1; i >= 0; i--)
     {
         // add 3-of-a-kind to resulting hand
-        if (!kindFound && buckets[i].size() >= 3)
+        if (kindBucket == -1 && buckets[i].size() >= 3)
         {
             for (Card card : buckets[i]) res.push_back(card);
-            kindFound = true;
+            kindBucket = i;
             i = buckets.size(); // fix bug similar to four of a kind bug
         }
 
         // add kicker(s)
-        else if (kindFound && buckets[i].size() > 0) 
+        else if (kindBucket >-1 && buckets[i].size() > 0 && i != kindBucket) 
         {
             res.push_back(buckets[i][0]);
             numKickers--;
@@ -162,6 +162,7 @@ vector<Card> bestTwoPair(vector<vector<Card>> buckets)
     // iterate through cards to find two pair
     vector<Card> res;
     int pairsLeft = 2;
+    vector<int> kinds;
     for (int i = buckets.size()-1; i >= 0; i--)
     {
         // add pair to resulting hand
@@ -169,12 +170,13 @@ vector<Card> bestTwoPair(vector<vector<Card>> buckets)
         {
             for (Card card : buckets[i]) res.push_back(card);
             pairsLeft--;
+            kinds.push_back(i);
 
             if (pairsLeft == 0) i = buckets.size(); // fix bug similar to four of a kind bug
         }
 
         // add kicker
-        else if (pairsLeft == 0 && buckets[i].size() > 0) 
+        else if (pairsLeft == 0 && buckets[i].size() > 0 && i != kinds[0] && i != kinds[1]) 
         {
             res.push_back(buckets[i][0]);
             return res;
@@ -188,20 +190,20 @@ vector<Card> bestPair(vector<vector<Card>> buckets)
 {
     // iterate through cards to find pair
     vector<Card> res;
-    bool pairFound = false;
+    int pairKind = -1;
     int kickers = 3;
     for (int i = buckets.size()-1; i >= 0; i--)
     {
         // add pair to resulting hand
-        if (!pairFound && buckets[i].size() >= 2)
+        if (pairKind == -1 && buckets[i].size() >= 2)
         {
             for (Card card : buckets[i]) res.push_back(card);
-            pairFound = true;
+            pairKind = i;
             i = buckets.size(); // fix bug similar to four of a kind bug
         }
 
         // add kickers
-        else if (pairFound && kickers > 0 && buckets[i].size() > 0) 
+        else if (pairKind > -1 && kickers > 0 && buckets[i].size() > 0 && i != pairKind) 
         {
             res.push_back(buckets[i][0]);
             kickers--;

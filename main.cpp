@@ -12,6 +12,7 @@ int main()
     testStraight();
     testThreeKind();
     testTwoPair();
+    testPair();
 
     return 0;
 }
