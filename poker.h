@@ -22,6 +22,7 @@ enum Strength
 };
 
 const int KICKER_SHIFT = 4;
+const int HAND_SIZE = 5;
 
 vector<Card> bestStraightFlush(vector<vector<Card>> buckets);
 vector<Card> bestFlush(vector<vector<Card>> buckets);

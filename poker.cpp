@@ -1,4 +1,5 @@
 #include "poker.h"
+#include <iostream>
 
 vector<Card> bestStraightFlush(vector<vector<Card>> buckets)
 {
@@ -212,7 +213,7 @@ vector<Card> bestPair(vector<vector<Card>> buckets)
             if (kickers == 0) return res;
         }
     }
-    
+
     return res;
 }
 
@@ -234,6 +235,8 @@ ScoredHand bestHand(vector<Card> cards)
             score <<= KICKER_SHIFT;
             score += getValue(card);
         }
+        score <<= KICKER_SHIFT * (HAND_SIZE - straightFlush.size());
+
         return {straightFlush, score};
     }
 
@@ -247,6 +250,8 @@ ScoredHand bestHand(vector<Card> cards)
             score <<= KICKER_SHIFT;
             score += getValue(card);
         }
+        score <<= KICKER_SHIFT * (HAND_SIZE - four.size());
+
         return {four, score};
     }
 
@@ -260,6 +265,8 @@ ScoredHand bestHand(vector<Card> cards)
             score <<= KICKER_SHIFT;
             score += getValue(card);
         }
+        score <<= KICKER_SHIFT * (HAND_SIZE - fullHouse.size());
+
         return {fullHouse, score};
     }
 
@@ -273,6 +280,8 @@ ScoredHand bestHand(vector<Card> cards)
             score <<= KICKER_SHIFT;
             score += getValue(card);
         }
+        score <<= KICKER_SHIFT * (HAND_SIZE - flush.size());
+
         return {flush, score};
     }
 
@@ -286,6 +295,8 @@ ScoredHand bestHand(vector<Card> cards)
             score <<= KICKER_SHIFT;
             score += getValue(card);
         }
+        score <<= KICKER_SHIFT * (HAND_SIZE - straight.size());
+
         return {straight, score};
     }
 
@@ -299,6 +310,8 @@ ScoredHand bestHand(vector<Card> cards)
             score <<= KICKER_SHIFT;
             score += getValue(card);
         }
+        score <<= KICKER_SHIFT * (HAND_SIZE - three.size());
+
         return {three, score};
     }
 
@@ -312,6 +325,8 @@ ScoredHand bestHand(vector<Card> cards)
             score <<= KICKER_SHIFT;
             score += getValue(card);
         }
+        score <<= KICKER_SHIFT * (HAND_SIZE - twoPair.size());
+
         return {twoPair, score};
     }
 
@@ -325,6 +340,8 @@ ScoredHand bestHand(vector<Card> cards)
             score <<= KICKER_SHIFT;
             score += getValue(card);
         }
+        score <<= KICKER_SHIFT * (HAND_SIZE - pair.size());
+
         return {pair, score};
     }
 
@@ -332,8 +349,11 @@ ScoredHand bestHand(vector<Card> cards)
     vector<Card> res;
     for (int i = buckets.size()-1; i >= 0; i--)
     {
-        res.push_back(buckets[i][0]);
-        if (res.size() >= 5 || res.size() == cards.size()) break;
+        if (buckets[i].size() > 0)
+        {
+            res.push_back(buckets[i][0]);
+            if (res.size() >= 5 || res.size() == cards.size()) break;
+        }
     }
 
     int score = HIGH;
@@ -342,6 +362,8 @@ ScoredHand bestHand(vector<Card> cards)
         score <<= KICKER_SHIFT;
         score += getValue(card);
     }
+    score <<= KICKER_SHIFT * (HAND_SIZE - res.size());
+
     return {res, score};
 }
 

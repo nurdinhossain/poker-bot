@@ -13,6 +13,8 @@ int main()
     testThreeKind();
     testTwoPair();
     testPair();
+    testHigh();
+    testEverything();
 
     return 0;
 }
