@@ -1,6 +1,6 @@
-#include <iostream>
 #include "test.h"
 #include "poker.h"
+#include "timing.h"
 
 int main()
 {
@@ -15,6 +15,9 @@ int main()
     testPair();
     testHigh();
     testEverything();
+
+    // run timing tests
+    timeTests();
 
     return 0;
 }

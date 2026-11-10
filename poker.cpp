@@ -1,5 +1,4 @@
 #include "poker.h"
-#include <iostream>
 
 vector<Card> bestStraightFlush(vector<vector<Card>> buckets)
 {
