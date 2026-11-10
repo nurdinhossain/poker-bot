@@ -1,10 +1,12 @@
 #include "test.h"
 #include "poker.h"
 #include <cassert>
+#include <chrono>
 #include <iostream>
 
 #define CC createCard
 
+// correctness 
 void testStraightFlush()
 {
     vector<Card> test1 = {createCard(TWO, CLUBS), createCard(THREE, CLUBS), createCard(FOUR, CLUBS), createCard(FIVE, CLUBS), createCard(SIX, CLUBS)};
@@ -369,4 +371,57 @@ void testEverything()
                    {HIGH, PAIR, TWO_PAIR, THREE_KIND, STRAIGHT, FLUSH, FULL_HOUSE, FOUR_KIND, STRAIGHT_FLUSH});
  
     cout << "Everything all clear." << endl;
+}
+
+// timing
+void timeTests()
+{
+    vector<Card> test = {createCard(ACE, CLUBS), createCard(FIVE, DIAMONDS), createCard(FOUR, HEARTS), createCard(THREE, DIAMONDS), createCard(KING, CLUBS), createCard(SEVEN, SPADES), createCard(TWO, DIAMONDS)};
+
+    auto start = chrono::system_clock::now();
+    auto duration = start.time_since_epoch();
+    auto millis = chrono::duration_cast<chrono::milliseconds>(duration).count();
+
+    for (int i = 1; i <= MAX_N; i++)
+    {
+        bestHand(test);
+
+        double lg = log10(i);
+        if (lg > 0 && lg == floor(lg))
+        {
+            auto elapsed = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count() - millis;
+            cout << "After " << i << " loops: " << elapsed << " ms" << endl;
+        }
+    }
+}
+
+// probabilities
+void testRandomHands()
+{
+    Deck deck;
+    vector<int> buckets = vector(STRAIGHT_FLUSH+1, 0);
+
+    for (int i = 0; i < MAX_N; i++)
+    {
+        // reset and shuffle deck
+        deck.reset();
+        deck.mix();
+
+        // deal 7 cards
+        vector<Card> hand;
+        for (int k = 0; k < 7; k++)
+        {
+            hand.push_back(deck.deal());
+        }
+
+        // get best hand
+        ScoredHand best = bestHand(hand);
+        Strength st = getStrength(best.score);
+        buckets[st]++;
+    }
+
+    for (int i = 0; i < buckets.size(); i++)
+    {
+        cout << buckets[i] << endl;
+    }
 }

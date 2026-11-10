@@ -1,6 +1,5 @@
 #include "test.h"
 #include "poker.h"
-#include "timing.h"
 
 int main()
 {
@@ -18,6 +17,9 @@ int main()
 
     // run timing tests
     timeTests();
+
+    // run prob tests
+    testRandomHands();
 
     return 0;
 }
