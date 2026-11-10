@@ -227,7 +227,6 @@ void testPair()
     int hand3 = bestHand(test3).score;
     int hand5 = bestHand(test5).score;
 
-    cout << getValue(bestHand(test5).hand[0]) <<  ", " << getValue(bestHand(test5).hand[1]) << ", " << getValue(bestHand(test5).hand[2]) << ", " << getValue(bestHand(test5).hand[3]) << ", " << getValue(bestHand(test5).hand[4]) << endl;
     // make sure hands are evaluated as pairs
     assert(getStrength(hand1) == PAIR);
     assert(getStrength(hand2) == PAIR);

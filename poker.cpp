@@ -1,5 +1,4 @@
 #include "poker.h"
-#include <algorithm>
 
 vector<Card> bestStraightFlush(vector<vector<Card>> buckets)
 {
@@ -183,6 +182,8 @@ vector<Card> bestTwoPair(vector<vector<Card>> buckets)
         }
     }
     
+    if (pairsLeft > 0) return {};
+
     return res;
 }
 
