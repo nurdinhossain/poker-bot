@@ -24,14 +24,6 @@ enum Strength
 const int KICKER_SHIFT = 4;
 const int HAND_SIZE = 5;
 
-vector<Card> bestStraightFlush(vector<vector<Card>> buckets);
-vector<Card> bestFlush(vector<vector<Card>> buckets);
-vector<Card> bestStraight(vector<vector<Card>> buckets);
-vector<Card> fourOfAKind(vector<vector<Card>> buckets);
-vector<Card> bestFullHouse(vector<vector<Card>> buckets);
-vector<Card> bestThreeOfAKind(vector<vector<Card>> buckets);
-vector<Card> bestTwoPair(vector<vector<Card>> buckets);
-vector<Card> bestPair(vector<vector<Card>> buckets);
-ScoredHand bestHandHelper(vector<Card> cards);
+int score(vector<Card> cards, Strength strength);
 ScoredHand bestHand(vector<Card> cards);
 Strength getStrength(int score);
