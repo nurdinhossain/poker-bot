@@ -27,7 +27,7 @@ ScoredHand bestHand(vector<Card> cards)
     // book-keeping
     vector<bool> hasPT = { false, false };
     vector<Value> ptValues = { TWO, TWO };
-    bool hasSecondPair;
+    bool hasSecondPair = false;
     Value secondPairValue = TWO;
     int currentSequence = 0;
 
@@ -116,19 +116,19 @@ ScoredHand bestHand(vector<Card> cards)
                     }
 
                     // if we've found pairs before, this is a two-pair
-                    else if (hasPT[0] && !hasSecondPair)
-                    {
-                        hasSecondPair = true;
-                        secondPairValue = static_cast<Value>(i);
-                        highestStrength = max(highestStrength, TWO_PAIR);
-                    }
-
-                    // otherwise, this is just a pair
-                    else
+                    else if (!hasPT[0])
                     {
                         hasPT[0] = true;
                         ptValues[0] = static_cast<Value>(i);
                         highestStrength = max(highestStrength, PAIR);
+                    }
+
+                    // otherwise, this is just a pair
+                    else if (!hasSecondPair)
+                    {
+                        hasSecondPair = true;
+                        secondPairValue = static_cast<Value>(i);
+                        highestStrength = max(highestStrength, TWO_PAIR);
                     }
                 }
             }

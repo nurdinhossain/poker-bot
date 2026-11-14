@@ -13,7 +13,7 @@ void testHigh();
 void testEverything();
 
 // timing
-const int MAX_N = 100000;
+const int MAX_N = 1000000;
 
 void timeTests();
 
