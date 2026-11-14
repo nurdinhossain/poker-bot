@@ -1,6 +1,6 @@
 #include "poker.h"
 
-int score(vector<Card> cards, Strength strength)
+int score(const vector<Card>& cards, Strength strength)
 {
     int score = strength;
     for (Card card : cards) 
@@ -13,7 +13,7 @@ int score(vector<Card> cards, Strength strength)
     return score;
 }
 
-ScoredHand bestHand(vector<Card> cards)
+ScoredHand bestHand(const vector<Card>& cards)
 {
     // sort cards into buckets
     vector<vector<Card>> buckets(13, vector<Card>());

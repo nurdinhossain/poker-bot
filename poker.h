@@ -24,6 +24,6 @@ enum Strength
 const int KICKER_SHIFT = 4;
 const int HAND_SIZE = 5;
 
-int score(vector<Card> cards, Strength strength);
-ScoredHand bestHand(vector<Card> cards);
+int score(const vector<Card>& cards, Strength strength);
+ScoredHand bestHand(const vector<Card>& cards);
 Strength getStrength(int score);
