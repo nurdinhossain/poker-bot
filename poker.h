@@ -32,5 +32,6 @@ vector<Card> bestFullHouse(vector<vector<Card>> buckets);
 vector<Card> bestThreeOfAKind(vector<vector<Card>> buckets);
 vector<Card> bestTwoPair(vector<vector<Card>> buckets);
 vector<Card> bestPair(vector<vector<Card>> buckets);
+ScoredHand bestHandHelper(vector<Card> cards);
 ScoredHand bestHand(vector<Card> cards);
 Strength getStrength(int score);

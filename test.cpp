@@ -17,6 +17,7 @@ void testStraightFlush()
     int hand3 = bestHand(test3).score;
 
     // make sure hands are evaluated as straight flushes
+    cout << getStrength(hand1) << endl;
     assert(getStrength(hand1) == STRAIGHT_FLUSH);
     assert(getStrength(hand2) == STRAIGHT_FLUSH);
     assert(getStrength(hand3) == STRAIGHT_FLUSH);
